@@ -1,4 +1,4 @@
-OBJECTS=Array.o BinaryExpression.o Choice.o Definition.o Field.o Number.o Reference.o String.o
+OBJECTS=Array.o BinaryExpression.o Choice.o Context.o Definition.o Field.o Number.o Reference.o String.o
 LIBRARIES=ast.a
 CXXFLAGS=-std=c++1y -Wall
 
