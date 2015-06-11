@@ -1,0 +1,5 @@
+NewStruct2 ::= {
+  uint8 a;
+  string s;
+  uint8 b;
+};
