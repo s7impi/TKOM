@@ -1,2 +1,11 @@
 *.[oa]
+*.out
 *.directory
+main
+parser/lex.yy.cc
+parser/lexer.cc
+parser/parser.dot
+parser/parser.ps
+parser/parser.tab.cc
+parser/parser.tab.hh
+parser/stack.hh
