@@ -38,6 +38,17 @@ public:
     context.out() << (int)data << std::endl;
   }
 };
+
+template <>
+class Integer<bool> : public Node {
+public:
+  void convert(Context& context)
+  {
+    bool data = context.read<bool>(1);
+    context.set(data ? 1 : 0);
+    context.out() << (data ? 1 : 0) << std::endl;
+  }
+};
   
 } /* namespace ast */
 

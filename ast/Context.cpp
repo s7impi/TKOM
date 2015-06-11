@@ -5,6 +5,25 @@ void Context::read()
   cur = is.get();
   bit = 0;
 }
+
+uchar Context::read(std::size_t bits)
+{
+  // need more data
+  if (bit == CHAR_BIT)
+    read();
+  
+  std::size_t first = CHAR_BIT-bit;
+  uchar r = cur<<(CHAR_BIT-first);
+  if (bits > first)
+  {
+    read();
+    r |= cur>>first;
+    bit = bits-first;
+  }
+  else
+    bit += bits;
+  return r >> (CHAR_BIT-bits);
+}
   
 void Context::read(std::size_t bits, uchar* data)
 {
@@ -12,47 +31,12 @@ void Context::read(std::size_t bits, uchar* data)
   if (bits == 0)
     return;
     
-  // current buffer read - read more data
-  if (bit == CHAR_BIT)
-    read();
-    
   std::size_t rest = bits%CHAR_BIT;
   if (rest != 0)
-  {
-    if (CHAR_BIT-bit >= rest)
-    {
-      *data = cur>>(CHAR_BIT-rest-bit)&((1<<rest)-1);
-      bit += rest;
-    }
-    else
-    {
-      std::size_t first = CHAR_BIT-bit;
-      *data = cur<<(rest-first)&((1<<rest)-1);
-      read();
-      *data |= cur>>(CHAR_BIT-(first-rest))&((1<<rest)-1);
-      bit = rest-first;    
-    }
-  }
+    *data++ = read(rest);
     
-  while (bits)
-  {
-    // current buffer read - read more data
-    if (bit == CHAR_BIT)
-      read();
-      
-    std::size_t first = bit;
-    *data = cur<<first;
-      
-    if (first != 0)
-    {
-      read();
-      *data |= cur>>(CHAR_BIT-first);
-    }
-      
-    bit = CHAR_BIT-first;
-    ++data;
-    bits -= CHAR_BIT;
-  }
+  for (; bits >= CHAR_BIT; bits -= CHAR_BIT)
+    *data++ = read(CHAR_BIT);
 }
   
 Context::Context(std::istream& is, std::ostream& os) : 

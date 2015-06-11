@@ -25,6 +25,7 @@ class Context {
   std::vector<std::unordered_map<std::string, uint>> scopes;
   
   void read();
+  uchar read(std::size_t bits);
   void read(std::size_t bits, uchar* data);
   
 public:
