@@ -17,6 +17,7 @@ typedef unsigned char uchar;
 class Context {
   uint level;
   uchar cur;
+  std::string id;
   std::size_t bit;
   std::istream& is;
   std::ostream& os;
@@ -28,7 +29,7 @@ class Context {
   
 public:
   Context(std::istream& is, std::ostream& os);
-  void set(std::string id, uint val);
+  void set(uint val);
   uint get(std::string id) const;
   
   template <typename T>
@@ -41,7 +42,7 @@ public:
   
   std::ostream& out();
   
-  void openScope(std::string /*id*/);
+  void openScope(std::string id);
   void closeScope();
   
   void startLevel();

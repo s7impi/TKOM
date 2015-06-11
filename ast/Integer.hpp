@@ -11,7 +11,9 @@ class Integer : public Node {
 public:
   void convert(Context& context)
   {
-    context.out() << context.read<T>(sizeof(T)*CHAR_BIT) << std::endl;
+    T data = context.read<T>(sizeof(T)*CHAR_BIT);
+    context.set((uint)data);
+    context.out() << data << std::endl;
   }
 };
 
@@ -20,7 +22,9 @@ class Integer<uint8_t> : public Node {
 public:
   void convert(Context& context)
   {
-    context.out() << (uint)context.read<uint8_t>(sizeof(uint8_t)*CHAR_BIT) << std::endl;
+    uint8_t data = context.read<uint8_t>(sizeof(uint8_t)*CHAR_BIT);
+    context.set(data);
+    context.out() << (uint)data << std::endl;
   }
 };
 
@@ -29,7 +33,9 @@ class Integer<int8_t> : public Node {
 public:
   void convert(Context& context)
   {
-    context.out() << (int)context.read<int8_t>(sizeof(int8_t)*CHAR_BIT) << std::endl;
+    int8_t data = context.read<int8_t>(sizeof(int8_t)*CHAR_BIT);
+    context.set((uint)data);
+    context.out() << (int)data << std::endl;
   }
 };
   

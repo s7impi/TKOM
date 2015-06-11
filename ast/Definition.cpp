@@ -18,8 +18,10 @@ void Definition::convert(Context &context)
 {
   context.out() << name << ":" << std::endl;
   context.startLevel();
+  context.openScope(name);
   for (auto it = fields.begin(), end = fields.end(); it != end; ++it)
     (*it)->convert(context);
+  context.closeScope();
   context.endLevel();
 }
 

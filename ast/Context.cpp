@@ -63,9 +63,9 @@ Context::Context(std::istream& is, std::ostream& os) :
   os(os)
 {}
 
-void Context::set(std::string id, uint val)
+void Context::set(uint val)
 {
-  scopes.back().insert(std::make_pair(id, val));
+  scopes[scopes.size()-2].insert(std::make_pair(id, val));
 }
 
 uint Context::get(std::string id) const
@@ -86,8 +86,9 @@ std::ostream& Context::out()
   return os;
 }
 
-void Context::openScope(std::string /*id*/)
+void Context::openScope(std::string id)
 {
+  this->id = id;
   scopes.emplace_back(std::unordered_map<std::string, uint>());
 }
   
@@ -113,5 +114,8 @@ void Context::definition(std::string id, std::shared_ptr<ast::Definition> defini
   
 std::shared_ptr<ast::Definition> Context::definition(std::string id)
 {
-  return definitions[id];
+  auto it = definitions.find(id);
+  if (it == definitions.end())
+    throw std::runtime_error("No such definition");
+  return it->second;
 }
