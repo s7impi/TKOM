@@ -1,4 +1,4 @@
-NewStruct2 ::= {
+BinaryStruct ::= {
   uint8 a;
   string s;
   uint8 b;

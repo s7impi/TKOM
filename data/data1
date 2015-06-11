@@ -1,5 +1,5 @@
-NewStruct1 ::= {
-  uint8 a;
+BinaryStruct ::= {
+  bit a[8];
   uint8 b;
   uint8 c;
 };

@@ -1,4 +1,4 @@
-NewStruct4 ::= {
+BinaryStruct ::= {
   uint8 a;
   choice <a>
   {
